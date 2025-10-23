@@ -39,46 +39,70 @@ RUN \
 ##########
 
 #install base pkg
-RUN apt-get update && \
-apt-get install wget  systemctl nano vim  curl gnupg  ca-certificates -y
+RUN \
+  apt.sh systemctl gnupg;
+  # apt update && \
+  # apt install wget  systemctl nano vim  curl gnupg  ca-certificates -y
 
 # #arm64: use jiangcuo_proxmox_arm64 https://github.com/jiangcuo/Proxmox-Arm64
 # RUN echo "deb https://mirrors.apqa.cn/proxmox/ pvearm  main">/etc/apt/sources.list.d/foxi.list && \
-# curl -L https://mirrors.apqa.cn/proxmox/gpg.key |apt-key add -
-#x64: add proxmox repo
-RUN echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ bullseye pve-no-subscription" >>/etc/apt/sources.list && \
-curl https://mirrors.ustc.edu.cn/proxmox/debian/proxmox-release-bullseye.gpg|apt-key add -
+# curl -k -fSL  https://mirrors.apqa.cn/proxmox/gpg.key |apt-key add -
 
+#x64: add proxmox repo
+  # 0.336 curl: (77) error setting certificate verify locations:
+  # 0.336   CAfile: /etc/ssl/cert.pem
+  # 0.336   CApath: none
+  # 0.337 gpg: no valid OpenPGP data found.
+RUN echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ bullseye pve-no-subscription" >>/etc/apt/sources.list && \
+  curl -k -fSL https://mirrors.ustc.edu.cn/proxmox/debian/proxmox-release-bullseye.gpg|apt-key add -; \
+  exit 0
+
+# gpgKey: --allow-unauthenticated
+  #12 10.56 Need to get 352 MB of archives.
+  #12 10.56 After this operation, 1768 MB of additional disk space will be used.
 #intall proxmox-ve without recommends. ##x64:ifupdown2 will install failed but ok
-RUN apt-get update && \
-DEBIAN_FRONTEND=noninteractiv apt-get -y --no-install-recommends  install  proxmox-ve || echo ok
+RUN \
+  # apt.sh proxmox-ve; \
+  # apt -y remove pve-kernel-5.15.158-2-pve; \
+  # exit 0
+  # 
+  #apt install --ignore-depends=pve-kernel-5.15.158-2-pve ##不支持的参数(by:dpkg)
+  apt update && \
+  DEBIAN_FRONTEND=noninteractiv apt -y -d --no-install-recommends --allow-unauthenticated install  proxmox-ve | tee /tmp/apt_ins_proxmox-ve.log; \
+  # apt clean; \
+  rm -rf /var/lib/apt/lists/*; 
 
 # x64 only
-  #repacked proxmox-ve
-  RUN wget https://mirrors.ustc.edu.cn/proxmox/debian/dists/bullseye/pve-no-subscription/binary-amd64/proxmox-ve_7.2-1_all.deb && \
+  #repacked proxmox-ve; 7.2-1 >> 7.4-1
+  RUN exit 0; export ver=7.4-1; \
+  wget https://mirrors.ustc.edu.cn/proxmox/debian/dists/bullseye/pve-no-subscription/binary-amd64/proxmox-ve_${ver}_all.deb && \
   mkdir /tmp/pve && \
-  dpkg -X proxmox-ve_7.2-1_all.deb /tmp/pve/ && \
-  dpkg -e proxmox-ve_7.2-1_all.deb /tmp/pve/DEBIAN && \
+  dpkg -X proxmox-ve_${ver}_all.deb /tmp/pve/ && \
+  dpkg -e proxmox-ve_${ver}_all.deb /tmp/pve/DEBIAN && \
   sed -i "s/pve-kernel-helper,//g" /tmp/pve/DEBIAN/control && \
   sed -i "s/pve-kernel-5.15,//g" /tmp/pve/DEBIAN/control && \
-  dpkg-deb -Zxz  -b /tmp/pve/ /tmp/
-
-  #repacked pve-manager
-  RUN wget https://mirrors.ustc.edu.cn/proxmox/debian/dists/bullseye/pve-no-subscription/binary-amd64/pve-manager_7.2-7_amd64.deb && \
+  dpkg-deb -Zxz  -b /tmp/pve/ /tmp/; \
+  #repacked pve-manager; 7.2-7>> 7.4-20
+  export ver=7.4-20; \
+  wget https://mirrors.ustc.edu.cn/proxmox/debian/dists/bullseye/pve-no-subscription/binary-amd64/pve-manager_${ver}_amd64.deb && \
   mkdir /tmp/pve-manager && \
-  dpkg -X pve-manager_7.2-7_amd64.deb  /tmp/pve-manager/ && \
-  dpkg -e pve-manager_7.2-7_amd64.deb /tmp/pve-manager/DEBIAN && \
+  dpkg -X pve-manager_${ver}_amd64.deb  /tmp/pve-manager/ && \
+  dpkg -e pve-manager_${ver}_amd64.deb /tmp/pve-manager/DEBIAN && \
   sed -i "s/ifupdown2 (>= 2.0.1-1+pve8) | ifenslave (>= 2.6),//g" /tmp/pve-manager/DEBIAN/control && \
-  dpkg-deb -Zxz  -b /tmp/pve-manager/ /tmp
-
+  dpkg-deb -Zxz  -b /tmp/pve-manager/ /tmp; \
+  rm -rf /*.deb;
   ##install again
-  RUN dpkg -i /tmp/*.deb || echo ok
+  RUN \
+  # cp: cannot stat '/usr/share/doc/pve-manager/aplinfo.dat': No such file or directory
+  mkdir -p /var/lib/pve-manager/apl-info/download.proxmox.com; \
+  dpkg -i /tmp/*.deb || echo ok; \
+  exit 0;
 
 #set passwd for root
 RUN echo "root:root"|chpasswd
 
-#clean
-RUN rm -rf /var/lib/apt/lists/*  /*.deb
+# #clean
+# RUN rm -rf /var/lib/apt/lists/*  /*.deb
 
 #use setup.sh to start proxmox service
 STOPSIGNAL SIGINT
