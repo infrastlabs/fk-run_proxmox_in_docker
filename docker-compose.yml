@@ -1,20 +1,25 @@
 # version: '2.4' #dcp-v2.29.7: the attribute `version` is obsolete, it will be ignored
 services:
   deb11-pve:
-    image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11
+    image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11-t1
     # entrypoint: /bin/bash /srv/local/libvirt/build/entry-prex11.sh
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "bash", "-c", "sv status |grep -v '+ +++ ' && exit 1 || exit 0 "]
+    # healthcheck:
+    #   test: ["CMD", "bash", "-c", "sv status |grep -v '+ +++ ' && exit 1 || exit 0 "]
     shm_size: 1g
-    hostname: x11-virter
+    hostname: deb11-pve
     privileged: true
     network_mode: ${NETWORK_MODE:-bridge} #host bridge; non.host: avoid multi-inst-network-conflict
-    working_dir: /srv/local/libvirt
+    # working_dir: /srv/local/libvirt
     cgroup: host
     # profiles: [default] #dcp不带参:不会激活之
+    cap_add: #ref gnome@headless//docker-compose-livecd.yml
+      - SYS_BOOT
+      - SYS_ADMIN
+      # https://github.com/docker-archive/libcontainer/blob/master/SPEC.md#security
+      # $ cat ct_caps.txt2  |cut -d' ' -f1 |grep -v "^$" |sort |sed "s/CAP_/- /g"          
     ports:
-      # - 8006:8006
+      - 8006:8006
       - 64022:64022
       - 64081:64081
       - 64089:64089
@@ -26,6 +31,10 @@ services:
       - SSH_PASS=${SSH_PASS:-headless}
       - VNC_PASS=${VNC_PASS:-headless}
       - VNC_PASS_RO=${VNC_PASS_RO:-View123}
+    devices: #ref docker-hdmi-desktop//docker-compose.yml
+      # - "/dev:/dev"
+      - "/dev/kvm"
+      - "/dev/fuse"
     tmpfs:
       - /var/run
       - /run
@@ -33,6 +42,7 @@ services:
       - /tmp
     volumes:
       - /_ext:/_ext
+      - /sys/fs/cgroup:/sys/fs/cgroup 
       # - ./:/srv/local/libvirt
       # - ./data-x11ubtaio/var-lib-libvirt:/var/lib/libvirt
       # - ./data-x11ubtaio/var-run-libvirt:/var/run/libvirt
