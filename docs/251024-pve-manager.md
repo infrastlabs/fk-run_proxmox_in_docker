@@ -13,6 +13,13 @@
 - ct-info
 
 ```bash
+# imgs
+root @ deb11-11 in ~ |16:59:01  
+$ docker images |grep docker-pve
+  registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve   v2501-deb11-t2  b0693486baa5   38 minutes ago   1.7GB
+  registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve   v2501-deb11-t1  136898fa24bb   6 hours ago   2.45GB
+  registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve   v2501-deb11  8247573e20d0   10 hours ago  982MB #/var/cache/apt/archives/*.deb
+
 # pkgsize
 root @ deb11-pve in /etc/ssh |16:54:11  
 $ pkgsize
