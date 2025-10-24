@@ -3,6 +3,14 @@
   - pve8.4--deb12
   - pve7.4--deb11
 
+### 251023-proxmox-pve
+
+- pve-manager [181 MB] #安装免错 `ifenslave/ifupdown1>> pve-manager`
+- proxmox-pve [352 MB]
+  - {initramfs-tools linux-base openssh-server}
+  - {proxmox-archive-keyring proxmox-kernel-helper pve-firmware pve-kernel-5.15 pve-kernel-5.15.158-2-pve}
+
+
 ### 251024-pve-manager
 
 ```bash
