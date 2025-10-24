@@ -463,14 +463,31 @@ $ apt install --no-install-recommends proxmox-ve
   Need to get 352 MB of archives.
   After this operation, 1768 MB of additional disk space will be used.
 
+# [pve-qemu-kvm>> ifenslave>> pve-manager]再装: 
+#  {initramfs-tools linux-base openssh-server}
+#  {proxmox-archive-keyring proxmox-kernel-helper pve-firmware pve-kernel-5.15 pve-kernel-5.15.158-2-pve}
+$ apt install --no-install-recommends proxmox-ve
+  The following NEW packages will be installed:
+    busybox dosfstools initramfs-tools initramfs-tools-core klibc-utils kmod libcbor0 libfido2-1 libklibc linux-base openssh-client openssh-server openssh-sftp-server proxmox-archive-keyring proxmox-kernel-helper proxmox-ve
+    pve-firmware pve-kernel-5.15 pve-kernel-5.15.158-2-pve runit-helper
+  0 upgraded, 20 newly installed, 0 to remove and 16 not upgraded.
+  Need to get 171 MB of archives.
+  After this operation, 673 MB of additional disk space will be used.
+
+
+# [pve-qemu-kvm]>> Need to get 93.5 MB of archives.
+# 无:pve-kernel/firmware
+#  {glusterfs-client nfs-common samba-common novnc-pve qemu-server}
+#  {proxmox-backup-client proxmox-backup-file-restore proxmox-mail-forward proxmox-mini-journalreader proxmox-websocket-tunnel proxmox-widget-toolkit pve-cluster pve-container pve-docs pve-edk2-firmware pve-firewall pve-ha-manager pve-i18n pve-lxc-syscalld pve-manager pve-xtermjs}
 $ apt install --no-install-recommends pve-manager
   3 upgraded, 282 newly installed, 1 to remove and 16 not upgraded.
   Need to get 181 MB of archives.
   After this operation, 1094 MB of additional disk space will be used.
 
+####################
 # kernel [79.7> 171 MB]
 $ apt install --no-install-recommends pve-kernel-5.15
-  The following NEW packages will be installed:  ##+pve-firmware pve-kernel-5.15 [79.7> 171 MB]
+  The following NEW packages will be installed:  ##+{pve-firmware pve-kernel-5.15} [79.7> 171 MB]
     busybox cpio initramfs-tools initramfs-tools-core klibc-utils kmod libklibc linux-base pve-firmware pve-kernel-5.15 pve-kernel-5.15.158-2-pve udev
   1 upgraded, 12 newly installed, 0 to remove and 18 not upgraded.
   Need to get 171 MB of archives.
@@ -484,17 +501,18 @@ $ apt install --no-install-recommends pve-kernel-5.15.158-2-pve
   After this operation, 413 MB of additional disk space will be used.
 
 # firmware
-$ apt install --no-install-recommends pve-firmware
+$ apt install --no-install-recommends pve-firmware #x1
   0 upgraded, 1 newly installed, 0 to remove and 19 not upgraded.
   Need to get 91.3 MB of archives.
   After this operation, 264 MB of additional disk space will be used.
 
-$ apt install --no-install-recommends pve-edk2-firmware
+$ apt install --no-install-recommends pve-edk2-firmware #x1
   0 upgraded, 1 newly installed, 0 to remove and 19 not upgraded.
   Need to get 10.2 MB of archives.
   After this operation, 288 MB of additional disk space will be used.
 
-# qemu
+####################
+# qemu {ceph-common glusterfs-common} 87.7 MB
 $ apt install --no-install-recommends pve-qemu-kvm
   0 upgraded, 72 newly installed, 0 to remove and 19 not upgraded.
   Need to get 87.7 MB of archives.
@@ -528,5 +546,53 @@ $ apt install --no-install-recommends systemd
   Need to get 4877 kB of archives.
   After this operation, 16.1 MB of additional disk space will be used.
 
+
+```
+
+- pve-manager deps:{ifenslave ifupdown2}
+
+```bash
+$ apt install --no-install-recommends pve-manager
+  Setting up ifupdown2 (3.1.0-1+pmx4) ...############.......] 
+  find: '/var/lib/dhcp/': No such file or directory
+  Creating /etc/network/interfaces.
+  network config changes have been detected for ifupdown2 compatibility.
+  Saved in /etc/network/interfaces.new for hot-apply or next reboot.
+  Reloading network config on first install
+  ##error: Another instance of this program is already running.
+  dpkg: error processing package ifupdown2 (--configure):
+  installed ifupdown2 package post-installation script subprocess returned error exit status 89
+  # ...
+  # ifupdown2 ifenslave
+  dpkg: dependency problems prevent configuration of pve-manager:
+  pve-manager depends on ifupdown2 (>= 2.0.1-1+pve8) | ifenslave (>= 2.6); however:
+    Package ifupdown2 is not configured yet.
+    Package ifenslave is not installed.
+  dpkg: error processing package pve-manager (--configure):
+  dependency problems - leaving unconfigured  
+  # ..
+  Created symlink /etc/systemd/system/multi-user.target.wants/qmeventd.service -> /lib/systemd/system/qmeventd.service.
+  Processing triggers for dbus (1.12.28-0+deb11u1) ...
+  Processing triggers for fontconfig (2.13.1-4.2) ...
+  Processing triggers for libc-bin (2.31-13+deb11u12) ...
+  Processing triggers for pve-ha-manager (3.6.1) ...
+  System has not been booted with systemd as init system (PID 1). Can't operate.
+  Failed to connect to bus: Host is down
+  System has not been booted with systemd as init system (PID 1). Can't operate.
+  Failed to connect to bus: Host is down
+  Errors were encountered while processing:
+  ifupdown2
+  pve-manager
+  E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+# ref src\Dockerfile.x11deb-t2
+  #ifupdown2[ERR; 237 kB] ifenslave [OK; 98.0 kB] ##ifenslave装后: pve-manager无ifupdown2依赖项了,安装ok
+  RUN apt.sh ifenslave;
+  # RUN apt.sh ifupdown2;
+
+  # apt install --no-install-recommends 
+  RUN apt.sh pve-qemu-kvm;
+  RUN apt.sh pve-manager;
+  # RUN apt.sh proxmox-ve;
 
 ```
