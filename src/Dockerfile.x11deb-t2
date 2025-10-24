@@ -76,7 +76,7 @@ RUN echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ bullseye pve-no-subscri
 #   pve-manager depends on ifupdown2 (>= 2.0.1-1+pve8) | ifenslave (>= 2.6); however:
 #    Package ifupdown2 is not configured yet.
 #    Package ifenslave is not installed.
-#ifupdown2[ERR; 237 kB] ifenslave [OK; 98.0 kB] ##ifenslave装后: pve-manager无ifupdown2依赖项了,安装ok
+#ifupdown2[ERR; 237 kB] ifenslave [OK; 98.0 kB{ifenslave+ifupdown}] ##ifenslave装后: pve-manager无ifupdown2依赖项了,安装ok
 RUN apt.sh ifenslave;
 # RUN apt.sh ifupdown2;
 
