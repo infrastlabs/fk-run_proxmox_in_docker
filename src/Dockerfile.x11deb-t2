@@ -61,29 +61,16 @@ RUN echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ bullseye pve-no-subscri
   #12 10.56 Need to get 352 MB of archives.
   #12 10.56 After this operation, 1768 MB of additional disk space will be used.
 #intall proxmox-ve without recommends. ##x64:ifupdown2 will install failed but ok
-# RUN \
-#   # apt.sh proxmox-ve; \
-#   # apt -y remove pve-kernel-5.15.158-2-pve; \
-#   # exit 0
-#   # 
-#   #apt install --ignore-depends=pve-kernel-5.15.158-2-pve ##不支持的参数(by:dpkg)
-#   apt update && \
-#   DEBIAN_FRONTEND=noninteractiv apt -y -d --no-install-recommends --allow-unauthenticated install  proxmox-ve | tee /tmp/apt_ins_proxmox-ve.log; \
-#   # apt clean; \
-#   rm -rf /var/lib/apt/lists/*; 
-
-# dpkg: dependency problems prevent configuration of pve-manager:
-#   pve-manager depends on ifupdown2 (>= 2.0.1-1+pve8) | ifenslave (>= 2.6); however:
-#    Package ifupdown2 is not configured yet.
-#    Package ifenslave is not installed.
-#ifupdown2[ERR; 237 kB] ifenslave [OK; 98.0 kB] ##ifenslave装后: pve-manager无ifupdown2依赖项了,安装ok
-RUN apt.sh ifenslave;
-# RUN apt.sh ifupdown2;
-
-# apt install --no-install-recommends 
-RUN apt.sh pve-qemu-kvm;
-RUN apt.sh pve-manager;
-# RUN apt.sh proxmox-ve;
+RUN \
+  # apt.sh proxmox-ve; \
+  # apt -y remove pve-kernel-5.15.158-2-pve; \
+  # exit 0
+  # 
+  #apt install --ignore-depends=pve-kernel-5.15.158-2-pve ##不支持的参数(by:dpkg)
+  apt update && \
+  DEBIAN_FRONTEND=noninteractiv apt -y -d --no-install-recommends --allow-unauthenticated install  proxmox-ve | tee /tmp/apt_ins_proxmox-ve.log; \
+  # apt clean; \
+  rm -rf /var/lib/apt/lists/*; 
 
 # x64 only
   #repacked proxmox-ve; 7.2-1 >> 7.4-1
