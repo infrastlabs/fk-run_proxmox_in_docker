@@ -53,8 +53,17 @@ RUN \
   # 0.336   CAfile: /etc/ssl/cert.pem
   # 0.336   CApath: none
   # 0.337 gpg: no valid OpenPGP data found.
-RUN echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ bullseye pve-no-subscription" >>/etc/apt/sources.list && \
-  curl -k -fSL https://mirrors.ustc.edu.cn/proxmox/debian/proxmox-release-bullseye.gpg|apt-key add -; \
+RUN \
+  case ${VER} in \
+  "7")   V2=wheezy    ;; \  
+  "8")   V2=jessie    ;; \  
+  "9")   V2=stretch   ;; \
+  "10")  V2=buster    ;; \
+  "11")  V2=bullseye  ;; \
+  "12")  V2=bookworm  ;; \
+  esac; \
+  echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ ${V2} pve-no-subscription" >>/etc/apt/sources.list && \
+  curl -k -fSL https://mirrors.ustc.edu.cn/proxmox/debian/proxmox-release-${V2}.gpg|apt-key add -; \
   exit 0
 
 # gpgKey: --allow-unauthenticated
@@ -118,7 +127,9 @@ RUN \
   exit 0;
 
 #set passwd for root
-RUN echo "root:root"|chpasswd
+RUN echo "root:root"|chpasswd; \
+  # web: can\t open '/etc/ssh/ssh_host_rsa_key.pub' - No such file or directory (500)
+  mkdir -p /etc/ssh; touch /etc/ssh/ssh_host_rsa_key.pub;
 
 # #clean
 # RUN rm -rf /var/lib/apt/lists/*  /*.deb
