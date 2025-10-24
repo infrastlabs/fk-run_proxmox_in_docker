@@ -61,8 +61,10 @@ RUN \
   "10")  V2=buster    ;; \
   "11")  V2=bullseye  ;; \
   "12")  V2=bookworm  ;; \
+  "13")  V2=trixie  ;; \
   esac; \
   echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ ${V2} pve-no-subscription" >>/etc/apt/sources.list && \
+  # deb13: none proxmox-release-trixie.gpg
   curl -k -fSL https://mirrors.ustc.edu.cn/proxmox/debian/proxmox-release-${V2}.gpg|apt-key add -; \
   exit 0
 
