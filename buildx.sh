@@ -48,5 +48,6 @@ ns=infrastlabs
 ver=v51 #base-v5 base-v5-slim
 # 
 # doBuildx v2501-deb11 Dockerfile.x11deb 11 #&
-doBuildx v2501-deb11-t2 Dockerfile.x11deb-t2 11
+# doBuildx v2501-deb11-t2 Dockerfile.x11deb-t2 11
+doBuildx v2501-deb12-t2 Dockerfile.x11deb-t2 12
 # wait
