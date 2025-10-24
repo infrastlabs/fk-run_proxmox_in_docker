@@ -2,7 +2,8 @@
 services:
   deb11-pve:
     # image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11-t1 #proxmox-ve
-    image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11-t2 #ifenslave>> pve-manager
+    # image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11-t2 #ifenslave>> pve-manager
+    image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb12-t2
     # entrypoint: /bin/bash /srv/local/libvirt/build/entry-prex11.sh
     restart: unless-stopped
     # healthcheck:
