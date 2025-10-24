@@ -91,7 +91,9 @@ RUN \
 RUN apt.sh ifenslave;
 # RUN apt.sh ifupdown2;
 
-# apt install --no-install-recommends 
+# apt install --no-install-recommends   --allow-unauthenticated
+RUN \
+  echo 'apt update -qq && apt install -yq --no-install-recommends --allow-unauthenticated $@ && apt clean && rm -rf /var/lib/apt/lists/*; ' > /usr/local/bin/apt.sh;
 RUN apt.sh pve-qemu-kvm;
 RUN \
   # local.handIns: 直接通过的;
