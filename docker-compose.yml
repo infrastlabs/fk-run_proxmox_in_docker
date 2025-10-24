@@ -1,7 +1,8 @@
 # version: '2.4' #dcp-v2.29.7: the attribute `version` is obsolete, it will be ignored
 services:
   deb11-pve:
-    image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11-t1
+    # image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11-t1 #proxmox-ve
+    image: registry.cn-shenzhen.aliyuncs.com/infrastlabs/docker-pve:v2501-deb11-t2 #ifenslave>> pve-manager
     # entrypoint: /bin/bash /srv/local/libvirt/build/entry-prex11.sh
     restart: unless-stopped
     # healthcheck:
