@@ -58,6 +58,47 @@ $ pkgsize
   # 283.40 Mbs   pve-qemu-kvm|7.2.10-1
   1563.61 Mbs  TOTALES
 
+# top
+  PID USER   PR  NI VIRT RES SHR S  %CPU  %MEM  TIME+ COMMAND 
+  800 www-data  20   0  359.0m 141.9m  12.2m S   0.0   0.4   0:02.46 pveproxy worker  
+  801 www-data  20   0  358.9m 141.9m  12.4m S   1.0   0.4   0:01.99 pveproxy worker  
+  802 www-data  20   0  357.5m 140.9m  12.4m S   0.0   0.4   0:01.73 pveproxy worker  
+  664 root   20   0  353.0m 137.1m  13.3m S   0.0   0.4   0:01.18 pvedaemon worke  
+  653 root   20   0  352.3m 130.9m   7.5m S   0.0   0.4   0:00.82 pvedaemon worke  
+  674 root   20   0  352.5m 130.8m   7.5m S   0.0   0.4   0:01.34 pvedaemon worke  
+  799 www-data  20   0  345.6m 126.5m   3.0m S   0.0   0.4   0:00.03 pveproxy   
+  642 root   20   0  344.1m 125.1m   3.0m S   0.0   0.4   0:00.03 pvedaemon  
+  868 root   20   0  327.3m 103.8m   3.1m S   0.0   0.3   0:00.13 pvescheduler  
+  788 root   20   0  332.5m 102.6m   3.8m S   0.0   0.3   0:00.11 pve-ha-crm 
+  808 root   20   0  331.9m 102.2m   4.0m S   0.0   0.3   0:00.24 pve-ha-lrm 
+  558 root   20   0  272.8m  89.8m   4.2m S   1.0   0.3   0:01.90 pve-firewall  
+  554 root   20   0  267.7m  87.6m   7.1m S   0.7   0.3   0:02.07 pvestatd   
+  215 root   20   0  588.0m  57.0m  49.9m S   0.3   0.2   0:01.67 pmxcfs  
+  807 www-data  20   0   74.4m  52.4m   3.8m S   0.0   0.2   0:00.07 spiceproxy work  
+  806 www-data  20   0   74.2m  51.6m   3.3m S   0.0   0.2   0:00.02 spiceproxy 
+    1916 root   20   0 2735.2m  44.7m  12.6m S  10.0   0.1   0:22.52 kvm  
+    39 root   20   0   31.3m  11.4m  10.5m S   0.0   0.0   0:00.33 systemd-journal  
+    1 root   20   0  160.0m  10.1m   7.8m S   0.0   0.0   0:01.11 systemd 
+  777 postfix   20   0   39.1m   6.3m   5.7m S   0.0   0.0   0:00.00 pickup  
+  778 postfix   20   0   39.2m   6.2m   5.5m S   0.0   0.0   0:00.00 qmgr 
+  162 root   20   0  109.1m   5.6m   5.0m S   0.0   0.0   0:00.04 systemd-logind   
+  159 root   20   0   10.8m   5.1m   4.1m S   0.0   0.0   0:00.00 smartd  
+    50 root   20   0   18.4m   4.8m   3.9m S   0.0   0.0   0:00.07 systemd-udevd 
+  776 root   20   0   39.1m   4.8m   4.2m S   0.0   0.0   0:00.00 master  
+  142 root   20   0  147.5m   4.1m   2.0m S   0.0   0.0   0:00.00 lxcfs   
+    96 _rpc   20   0 7.7m   4.0m   3.5m S   0.0   0.0   0:00.00 rpcbind 
+  138 message+  20   0 7.7m   3.7m   3.4m S   0.0   0.0   0:00.03 dbus-daemon   
+  812 root   20   0 3.8m   3.6m   0.0m S   0.0   0.0   0:00.13 bash 
+  190 root   20   0  645.9m   3.6m   2.4m S   0.0   0.0   0:00.31 rrdcached  
+    2122 root   20   0 6.9m   3.3m   2.8m R   0.0   0.0   0:00.01 top  
+  418 root   20   0 5.5m   2.6m   2.4m S   0.0   0.0   0:00.00 cron 
+    89 root   20   0   78.3m   2.2m   2.0m S   0.0   0.0   0:00.18 pvefw-logger  
+  172 root   20   0 2.8m   1.7m   1.6m S   0.0   0.0   0:00.00 agetty  
+  144 root   20   0  271.8m   1.4m   1.2m S   0.0   0.0   0:00.00 pve-lxc-syscall  
+  140 root   20   0 8.1m   1.4m   1.1m S   0.0   0.0   0:00.00 lxc-monitord  
+  167 root   20   0 2.2m   0.6m   0.5m S   0.0   0.0   0:00.04 watchdog-mux  
+  158 root   20   0 4.2m   0.1m   0.0m S   0.0   0.0   0:00.00 qmeventd 
+
 root @ deb11-pve in / |16:46:05  
 # pids
 $ ps -ef |wc
