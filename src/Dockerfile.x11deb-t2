@@ -82,7 +82,10 @@ RUN apt.sh ifenslave;
 
 # apt install --no-install-recommends 
 RUN apt.sh pve-qemu-kvm;
-RUN apt.sh pve-manager;
+RUN \
+  # local.handIns: 直接通过的;
+  mkdir -p /var/lib/pve-manager/apl-info/download.proxmox.com; \
+  apt.sh pve-manager;
 # RUN apt.sh proxmox-ve;
 #  {initramfs-tools linux-base openssh-server}
 #  {proxmox-archive-keyring proxmox-kernel-helper pve-firmware pve-kernel-5.15 pve-kernel-5.15.158-2-pve}
