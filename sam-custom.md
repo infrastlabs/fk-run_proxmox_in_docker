@@ -22,9 +22,9 @@
 
 # TODO
 # 无iso,无net:VM可启(与t1版效果一样)
-#  1.添加ISO
+#  1.添加ISO; OK
 #  2.添加NET<bridge,bond,vlan>; +OVS
 #  3.存储STOR: ceph/ceph-cli的使用
 #  4.集群CLUST: 多ct组集群, vm迁移
-
+#  5.配置CONF: ct.mntPath/conf.worker.x1
 ```
