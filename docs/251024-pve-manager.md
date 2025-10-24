@@ -3,7 +3,9 @@
 ```bash
 # web
 # https://172.29.40.252:8006 #root/root
-  can't open '/etc/ssh/ssh_host_rsa_key.pub' - No such file or directory (500)
+  can\t open '/etc/ssh/ssh_host_rsa_key.pub' - No such file or directory (500)
+  # mkdir -p /etc/ssh; touch /etc/ssh/ssh_host_rsa_key.pub
+  #之后:概要页正常(headInfo+chart图表)
 
 
 ```
@@ -11,6 +13,44 @@
 - ct-info
 
 ```bash
+# pkgsize
+root @ deb11-pve in /etc/ssh |16:54:11  
+$ pkgsize
+  6.82 Mbs  dpkg|1.20.13
+  7.49 Mbs  perl-base|5.32.1-4+deb11u4
+  7.56 Mbs  libjs-sencha-touch|2.4.2-1
+  7.71 Mbs  libpython3.9-stdlib|3.9.2-1+deb11u3
+  8.49 Mbs  geany-common|1.37.1-2
+  8.52 Mbs  binutils-x86-64-linux-gnu|2.35.2-2
+  8.76 Mbs  udev|247.3-7+1-pmx11u1
+  9.57 Mbs  libgtk-3-0|3.24.24-4+deb11u4
+  10.08 Mbs librsvg2-2|2.50.3+dfsg-1+deb11u1
+  12.53 Mbs libc6|2.31-13+deb11u12
+  # 13.03 Mbs librados2|14.2.21-1+deb11u1
+  # 12.61 Mbs proxmox-backup-client|2.4.7-1
+  # 13.50 Mbs proxmox-backup-file-restore|2.4.7-1
+  13.57 Mbs binutils-common|2.35.2-2
+  15.64 Mbs locales|2.31-13+deb11u13
+  15.65 Mbs systemd|247.3-7+1-pmx11u1
+  16.34 Mbs glusterfs-common|9.2-1
+  17.05 Mbs perl-modules-5.32|5.32.1-4+deb11u4
+  17.07 Mbs coreutils|8.32-4+b1
+  19.60 Mbs iso-codes|4.6.0-1
+  21.96 Mbs libjs-extjs|7.0.0-1
+  24.36 Mbs samba-libs|2:4.13.13+dfsg-1~deb11u6
+  24.99 Mbs libgtk-3-common|3.24.24-4+deb11u4
+  25.01 Mbs cpp-10|10.2.1-6
+  25.75 Mbs adwaita-icon-theme|3.38.0-1
+  27.22 Mbs libperl5.32|5.32.1-4+deb11u4
+  # 27.69 Mbs pve-docs|7.4-2
+  # 29.01 Mbs lxc-pve|5.0.2-2
+  32.38 Mbs libicu67|67.1-7+deb11u1
+  34.45 Mbs git|1:2.30.2-1+deb11u5
+  # 59.93 Mbs ceph-common|14.2.21-1+deb11u1
+  # 274.55 Mbs   pve-edk2-firmware|3.20230228-4~bpo11+3
+  # 283.40 Mbs   pve-qemu-kvm|7.2.10-1
+  1563.61 Mbs  TOTALES
+
 root @ deb11-pve in / |16:46:05  
 # pids
 $ ps -ef |wc
