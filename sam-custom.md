@@ -452,3 +452,81 @@ $ systemctl -a |grep runn
   systemd-udevd-control.socket loaded    active running   udev Control Socket
   systemd-udevd-kernel.socket  loaded    active running   udev Kernel Socket
 ```
+
+- apt-sub size
+
+```bash
+root @ 38927ff7b96c in / |15:02:18  
+# [181> 352 MB]
+$ apt install --no-install-recommends proxmox-ve
+  3 upgraded, 302 newly installed, 1 to remove and 16 not upgraded.
+  Need to get 352 MB of archives.
+  After this operation, 1768 MB of additional disk space will be used.
+
+$ apt install --no-install-recommends pve-manager
+  3 upgraded, 282 newly installed, 1 to remove and 16 not upgraded.
+  Need to get 181 MB of archives.
+  After this operation, 1094 MB of additional disk space will be used.
+
+# kernel [79.7> 171 MB]
+$ apt install --no-install-recommends pve-kernel-5.15
+  The following NEW packages will be installed:  ##+pve-firmware pve-kernel-5.15 [79.7> 171 MB]
+    busybox cpio initramfs-tools initramfs-tools-core klibc-utils kmod libklibc linux-base pve-firmware pve-kernel-5.15 pve-kernel-5.15.158-2-pve udev
+  1 upgraded, 12 newly installed, 0 to remove and 18 not upgraded.
+  Need to get 171 MB of archives.
+  After this operation, 677 MB of additional disk space will be used.
+
+$ apt install --no-install-recommends pve-kernel-5.15.158-2-pve
+  The following NEW packages will be installed:
+    busybox cpio initramfs-tools initramfs-tools-core klibc-utils kmod libklibc linux-base pve-kernel-5.15.158-2-pve udev
+  1 upgraded, 10 newly installed, 0 to remove and 18 not upgraded.
+  Need to get 79.7 MB of archives.
+  After this operation, 413 MB of additional disk space will be used.
+
+# firmware
+$ apt install --no-install-recommends pve-firmware
+  0 upgraded, 1 newly installed, 0 to remove and 19 not upgraded.
+  Need to get 91.3 MB of archives.
+  After this operation, 264 MB of additional disk space will be used.
+
+$ apt install --no-install-recommends pve-edk2-firmware
+  0 upgraded, 1 newly installed, 0 to remove and 19 not upgraded.
+  Need to get 10.2 MB of archives.
+  After this operation, 288 MB of additional disk space will be used.
+
+# qemu
+$ apt install --no-install-recommends pve-qemu-kvm
+  0 upgraded, 72 newly installed, 0 to remove and 19 not upgraded.
+  Need to get 87.7 MB of archives.
+  After this operation, 491 MB of additional disk space will be used.
+
+# ceph-common
+$ apt install --no-install-recommends ceph-common
+  0 upgraded, 37 newly installed, 0 to remove and 19 not upgraded.
+  Need to get 26.5 MB of archives.
+  After this operation, 111 MB of additional disk space will be used.
+
+$ apt install --no-install-recommends glusterfs-common
+  0 upgraded, 22 newly installed, 0 to remove and 19 not upgraded.
+  Need to get 26.2 MB of archives.
+  After this operation, 44.6 MB of additional disk space will be used.
+
+# backup
+$ apt install --no-install-recommends proxmox-backup-client
+  0 upgraded, 4 newly installed, 0 to remove and 19 not upgraded.
+  Need to get 2947 kB of archives.
+  After this operation, 13.7 MB of additional disk space will be used.
+
+$ apt install --no-install-recommends proxmox-backup-file-restore
+  0 upgraded, 1 newly installed, 0 to remove and 19 not upgraded.
+  Need to get 2832 kB of archives.
+  After this operation, 14.2 MB of additional disk space will be used.
+
+# sysd
+$ apt install --no-install-recommends systemd
+  1 upgraded, 1 newly installed, 1 to remove and 18 not upgraded.
+  Need to get 4877 kB of archives.
+  After this operation, 16.1 MB of additional disk space will be used.
+
+
+```
