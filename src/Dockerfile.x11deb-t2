@@ -38,9 +38,9 @@ RUN \
 
 ##########
 
-#install base pkg
+#install base pkg; deb13: systemctl> systemd
 RUN \
-  apt.sh systemctl gnupg;
+  apt.sh systemd gnupg;
   # apt update && \
   # apt install wget  systemctl nano vim  curl gnupg  ca-certificates -y
 
